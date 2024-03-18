@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SwingConsole">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../!TIJ4-code-master/SwingConsole.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
