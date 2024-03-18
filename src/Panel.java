@@ -10,29 +10,15 @@ class Square extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.RED);
         maxWidth = getWidth();
         maxHeight = getHeight();
         side = Integer.min(maxHeight, maxWidth);
-        vertices = new int[][] {
-                {(int) (side*.25) , (int) (side*.25)},
-                {(int) (side*.75) , (int) (side*.25)},
-                {(int) (side*.75) , (int) (side*.75)},
-                {(int) (side*.25) , (int) (side*.75)}
-        };
-
-        for (int i = 0; i < 4; i ++) {
-            if (i<3) {
-                g.drawLine(vertices[i][0], vertices[i][1], vertices[i+1][0], vertices[i+1][1]);
-            } else {
-                g.drawLine(vertices[i][0], vertices[i][1], vertices[0][0], vertices[0][1]);
-            }
-        }
+        Shape square = SquareProducer.getSquare((int) (side*.25), (int) (side*.25), (int) (side*.5), Color.GREEN);
+        Plotter.plot(g, square);
     }
 
     public void rotate() {
         degree++;
-
     }
 }
 
