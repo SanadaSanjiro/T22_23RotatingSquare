@@ -8,6 +8,6 @@ import net.mindview.util.SwingConsole;
 
 public class Main {
     public static void main(String[] args) {
-        SwingConsole.run(new Panel(), 700, 400);
+        SwingConsole.run(new Frame(), 700, 400);
     }
 }

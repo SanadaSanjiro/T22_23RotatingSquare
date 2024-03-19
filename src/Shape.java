@@ -6,6 +6,7 @@ public class Shape {
     private Color color;
     private Set<Vertice> vertices = new HashSet<>();
     private Set<Edge> edges = new HashSet<>();
+    private Coordinates centRot;
 
     public Color getColor() {
         return color;
@@ -31,5 +32,13 @@ public class Shape {
         if (vertices.contains(edge.getVertice1()) && vertices.contains(edge.getVertice2())) {
             edges.add(edge);
         } else throw new IllegalArgumentException("Вершины данной грани не принадлежат фигуре!");
+    }
+
+    public void setCentRot(Coordinates c) {
+        centRot = c;
+    }
+
+    public Coordinates getCentRot() {
+        return centRot;
     }
 }

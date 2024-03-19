@@ -8,8 +8,8 @@ public class SquareProducer {
         Coordinates c1, c2, c3, c4;
         c1 = new Coordinates(x, y);
         c2 = new Coordinates(x, y + edgeLenght);
-        c3 = new Coordinates(x + edgeLenght, y);
-        c4 = new Coordinates(x + edgeLenght, y + edgeLenght);
+        c3 = new Coordinates(x + edgeLenght, y + edgeLenght);
+        c4 = new Coordinates(x + edgeLenght, y);
 
         Vertice v1, v2, v3, v4;
         v1 = new Vertice(c1);
@@ -20,15 +20,19 @@ public class SquareProducer {
 
         Edge e1, e2, e3, e4;
         e1 = new Edge(v1, v2);
-        e2 = new Edge(v2, v4);
-        e3 = new Edge(v4, v3);
-        e4 = new Edge(v3, v1);
+        e2 = new Edge(v2, v3);
+        e3 = new Edge(v3, v4);
+        e4 = new Edge(v4, v1);
         Set<Edge> edges = new HashSet<>(Arrays.asList(new Edge[]{e1, e2, e3, e4}));
 
         Shape square = new Shape();
         vertices.forEach(v->square.addVertice(v));
         edges.forEach(e->square.addEdge(e));
         square.setColor(color);
+
+        Coordinates centRot = new Coordinates(x+edgeLenght/2, y+edgeLenght/2);
+        square.setCentRot(centRot);
+
         return square;
     }
 }
