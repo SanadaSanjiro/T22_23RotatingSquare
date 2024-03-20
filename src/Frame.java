@@ -31,7 +31,7 @@ class Panel extends JPanel {
 
 public class Frame extends JFrame {
     private Panel panel = new Panel();
-    private JSlider adjustCycles = new JSlider(0, 90, 5);
+    private JSlider adjustCycles = new JSlider(-90, 90, 0);
     public Frame() {
         adjustCycles.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
