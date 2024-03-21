@@ -15,11 +15,13 @@ class Panel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        maxWidth = getWidth();
-        maxHeight = getHeight();
-        side = Integer.min(maxHeight, maxWidth);
-        if (Objects.isNull(square))
-               square = SquareProducer.getSquare((int) (side*.25), (int) (side*.25), (int) (side*.5), Color.GREEN);
+        if (Objects.isNull(square)) {
+            maxWidth = getWidth();
+            maxHeight = getHeight();
+            side = Integer.min(maxHeight, maxWidth);
+            square = SquareProducer.getSquare((int) (side * .25), (int) (side * .25), (int) (side * .5), Color.GREEN);
+            //square = LineProducer.getLine((int) (side * .25), (int) (side * .25), (int) (side * .5), Color.GREEN);
+        }
         Plotter.plot(g, square);
     }
 

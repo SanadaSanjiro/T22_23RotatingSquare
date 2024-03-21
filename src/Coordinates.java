@@ -6,12 +6,6 @@ public class Coordinates {
         this.x = x;
         this.y = y;
     }
-
-    public Coordinates(int x, int y) {
-        this.x = Double.valueOf(x);
-        this.y = Double.valueOf(y);
-    }
-
     public double getX() {
         return x;
     }
