@@ -62,9 +62,7 @@ public class Shape {
         });
     }
 
-    public synchronized void resize(int newSize) {
-        int scaleChange = scale - newSize;
-        scale = newSize;
+    public synchronized void resize(int newScale) {
         System.out.println("Новый масштаб: " + scale);
         vertices.forEach(v-> {
             Coordinates c = v.getCoordinates();
@@ -72,14 +70,15 @@ public class Shape {
             double x = c.getX() - centRot.getX();
             double y = c.getY() - centRot.getY();
             // расчитываем новые координаты относительно 0;0
-            double x1 = x * (100 - scaleChange)/100;
-            double y1 = y * (100 - scaleChange)/100;
-            System.out.println(v +  " :x1 = " + x1 + ", y1 = " + y1);
+            x=x*100/scale;
+            y=y*100/scale;
+            double x1 = x * newScale/100;
+            double y1 = y * newScale/100;
             // возвращаем центр координат на место
             x1 = x1 + centRot.getX();
             y1 = y1 + centRot.getY();
-            System.out.println("x1 = " + x1 + ", y1 = " + y1);
             v.setCoordinates(new Coordinates(x1,y1));
         });
+        scale = newScale;
     }
 }
