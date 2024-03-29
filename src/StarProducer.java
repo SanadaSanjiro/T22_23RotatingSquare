@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,8 +8,7 @@ public class StarProducer {
         Shape star = new Shape();
         Coordinates centRot = new Coordinates(x+edgeLenght/2, y+edgeLenght/2);
         star.setCentRot(centRot);
-        System.out.println("Центр вращения. x = " + centRot.getX() + " y = " + centRot.getY());
-        int verticeNumber = 6;          //количество вершин звезды
+        int verticeNumber = 90;          //количество вершин звезды
         int angle = 360/verticeNumber;              //угол между вершинами звезды, 360 градусов делить на чилсо вершин
 
         Coordinates c = new Coordinates(centRot.getX(), y/2);

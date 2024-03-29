@@ -82,18 +82,18 @@ public class Frame extends JFrame {
         bg.add(jb1);
         bg.add(jb2);
         bg.add(jb3);
+        adjustCycles.setToolTipText("Rotation Factor");
         adjustCycles.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 panel.setRotationFactor(((JSlider)e.getSource()).getValue());
-                System.out.println("Rotation factor: " + panel.getRotationFactor());
             }
         });
+        adjustScale.setToolTipText("Scale");
         adjustScale.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 panel.setScaleFactor(((JSlider)e.getSource()).getValue());
-                System.out.println("Scale factor: " + panel.getScaleFactor());
             }
         });
         panel.add(jb1);

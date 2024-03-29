@@ -46,7 +46,6 @@ public class Shape {
 
     public synchronized void rotate(int a) {
         angle = angle % 360 + a;
-        System.out.println("Новый угол: " + angle);
         vertices.forEach(v-> {
             Coordinates c = v.getCoordinates();
             // перемещаем центр вращения в начало отсчета
@@ -63,7 +62,6 @@ public class Shape {
     }
 
     public synchronized void resize(int newScale) {
-        System.out.println("Новый масштаб: " + scale);
         vertices.forEach(v-> {
             Coordinates c = v.getCoordinates();
             // перемещаем центр вращения в начало отсчета
