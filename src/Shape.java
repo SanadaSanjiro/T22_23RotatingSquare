@@ -2,10 +2,13 @@ import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Геометрическая фигура, состоящую из вершин и соединяющих их граней
+ */
 public class Shape {
     private Color color; // цвет
-    private Set<Vertice> vertices = new HashSet<>(); // грани фигуры
-    private Set<Edge> edges = new HashSet<>(); // узлы фигуры
+    private final Set<Vertice> vertices = new HashSet<>(); // грани фигуры
+    private final Set<Edge> edges = new HashSet<>(); // узлы фигуры
     private Coordinates centRot = new Coordinates(0,0); // координаты центра вращения
     private int angle; //угол наклона фигуры в градусах
     private int scale=100; // масштаб в процентах
@@ -36,6 +39,10 @@ public class Shape {
         } else throw new IllegalArgumentException("Вершины данной грани не принадлежат фигуре!");
     }
 
+    /**
+     * Задает центр вращения фигуры
+     * @param c координаты центра вращения
+     */
     public synchronized void setCentRot(Coordinates c) {
         centRot = c;
     }
@@ -44,6 +51,10 @@ public class Shape {
         return centRot;
     }
 
+    /**
+     * Поворачивает фигуру на a градусов относительно ее центра вращения
+     * @param a градус, на который нужно повернуть фигуру
+     */
     public synchronized void rotate(int a) {
         angle = angle % 360 + a;
         vertices.forEach(v-> {
@@ -61,7 +72,12 @@ public class Shape {
         });
     }
 
+    /**
+     * Масштабирует фигуру относительно центра вращения
+     * @param newScale масштаб, не должен быть равным 0, иначе координаты "схлопнуться"
+     */
     public synchronized void resize(int newScale) {
+        assert newScale!=0;
         vertices.forEach(v-> {
             Coordinates c = v.getCoordinates();
             // перемещаем центр вращения в начало отсчета

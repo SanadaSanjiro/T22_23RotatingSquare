@@ -1,3 +1,6 @@
+/**
+ * Грань фигуры, начинающаяся в вершине v1 и заканчивающаяся в v2
+ */
 public class Edge {
     private final  Vertice v1, v2;
 

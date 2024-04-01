@@ -1,30 +1,30 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Класс, задающий графический интерфейс
+ */
 class Panel extends JPanel {
     private int rotationFactor;
-    private int scaleFactor = 100;
-    private int maxWidth, maxHeight, side;
-
+    private int scale = 100;
+    private int side;
     Shape shape;
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (Objects.isNull(shape)) {
-            maxWidth = getWidth();
-            maxHeight = getHeight();
+            int maxWidth = getWidth();
+            int maxHeight = getHeight();
             side = Integer.min(maxHeight, maxWidth);
             shape = SquareProducer.getSquare((int) (side * .25), (int) (side * .25), (int) (side * .5), Color.GREEN);
             RotatingThread rt = new RotatingThread(this);
             ExecutorService es = Executors.newCachedThreadPool();
-            es.execute(rt);
+            es.execute(rt);                             // запускаем поток, придающий фигуре вращение
         }
         Plotter.plot(g, shape);
     }
@@ -37,19 +37,25 @@ class Panel extends JPanel {
     public int getRotationFactor() {
         return rotationFactor;
     }
+
     public void setRotationFactor(int rf) {
         rotationFactor = rf;
     }
 
-    public int getScaleFactor() {
-        return scaleFactor;
+    public int getScale() {
+        return scale;
     }
 
-    public void setScaleFactor(int scaleFactor) {
-        this.scaleFactor = scaleFactor;
-        shape.resize(scaleFactor);
+    public void setScale(int scale) {
+        this.scale = scale;
+        shape.resize(scale);
         repaint();
     }
+
+    /**
+     * Заменяет отображаемую фигуру на другую
+     * @param shapeType Один из типов заранее предопределенных фигур
+     */
     public void changeShape(ShapeTypes shapeType) {
         shape = shapeType.getShape((int) (side * .25), (int) (side * .25), (int) (side * .5), Color.GREEN);
         repaint();
@@ -57,45 +63,32 @@ class Panel extends JPanel {
 }
 
 public class Frame extends JFrame {
-    private Panel panel = new Panel();
-    private JSlider adjustCycles = new JSlider(-30, 30, 0);
-    private JSlider adjustScale = new JSlider(JSlider.VERTICAL, 1, 100, 100);
-    private ButtonGroup bg = new ButtonGroup();
-    private JRadioButton
-    jb1 = new JRadioButton(ShapeTypes.LINE.toString()),
-    jb2 = new JRadioButton(ShapeTypes.SQUARE.toString()),
-    jb3 = new JRadioButton(ShapeTypes.STAR.toString());
-
-    private ActionListener buttonListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            ShapeTypes shapeType = ShapeTypes.fromString(((JRadioButton) e.getSource()).getText()).get();
-            panel.changeShape(shapeType);
-        }
-    };
+    private final Panel panel = new Panel();
 
     public Frame() {
+        JRadioButton jb2 = new JRadioButton(ShapeTypes.SQUARE.toString());
         jb2.setSelected(true);
+        JRadioButton jb1 = new JRadioButton(ShapeTypes.LINE.toString());
+        ActionListener buttonListener = e -> {
+            Optional<ShapeTypes> optional = ShapeTypes.fromString(((JRadioButton) e.getSource()).getText());
+            if (optional.isEmpty()) return;
+            ShapeTypes shapeType = optional.get();
+            panel.changeShape(shapeType);
+        };
         jb1.addActionListener(buttonListener);
         jb2.addActionListener(buttonListener);
+        JRadioButton jb3 = new JRadioButton(ShapeTypes.STAR.toString());
         jb3.addActionListener(buttonListener);
+        ButtonGroup bg = new ButtonGroup();
         bg.add(jb1);
         bg.add(jb2);
         bg.add(jb3);
+        JSlider adjustCycles = new JSlider(-30, 30, 0);
         adjustCycles.setToolTipText("Rotation Factor");
-        adjustCycles.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                panel.setRotationFactor(((JSlider)e.getSource()).getValue());
-            }
-        });
+        adjustCycles.addChangeListener(e -> panel.setRotationFactor(((JSlider)e.getSource()).getValue()));
+        JSlider adjustScale = new JSlider(JSlider.VERTICAL, 1, 100, 100);
         adjustScale.setToolTipText("Scale");
-        adjustScale.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                panel.setScaleFactor(((JSlider)e.getSource()).getValue());
-            }
-        });
+        adjustScale.addChangeListener(e -> panel.setScale(((JSlider)e.getSource()).getValue()));
         panel.add(jb1);
         panel.add(jb2);
         panel.add(jb3);

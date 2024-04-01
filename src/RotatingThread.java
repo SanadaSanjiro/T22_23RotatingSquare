@@ -1,5 +1,8 @@
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Процесс, обеспечивающий вращение фигуры
+ */
 public class RotatingThread implements Runnable{
     Panel panel;
     RotatingThread(Panel p) {

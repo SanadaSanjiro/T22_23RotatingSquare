@@ -1,14 +1,25 @@
 import java.awt.*;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * Предоставляет метод для отрисовки фигуры
+ */
 public class Plotter {
+    /**
+     * Отрисовывает форму.
+     * @param g Объект Graphics
+     * @param shape Фигура, которую требуется изобразить
+     */
     public static void plot(Graphics g, Shape shape) {
         g.setColor(shape.getColor());
-        Set<Edge> edges = shape.getEdges();
-        edges.forEach(edge -> drawLine(g, edge));
+        shape.getEdges().forEach(edge -> drawLine(g, edge));
     }
 
+    /**
+     * Отрисовывает линию
+     * @param g Объект Graphics
+     * @param edge линия (грань фигуры) которую требуется отрисовать
+     */
     private static void drawLine(Graphics g,Edge edge) {
         Vertice v1 = edge.getVertice1();
         Vertice v2 = edge.getVertice2();

@@ -1,3 +1,6 @@
+/**
+ * Вершина фигуры
+ */
 public class Vertice {
     private Coordinates coordinates;
 
